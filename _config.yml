@@ -79,6 +79,6 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/Shawn070/jedi.github.io.git
+  repository: git@github.com:Shawn070/jedi.github.io.git
   branch: master
 
