@@ -65,7 +65,7 @@ top: true
 # Miscellaneous
 baidu_analytics: ''
 google_analytics: ''
-favicon: /favicon.png
+favicon: /img/favicon.png
 
 #你的头像url
 avatar: /img/kuchazi.jpg
@@ -107,7 +107,7 @@ style:
 # slider的设置
 slider:
   # 是否默认展开tags板块
-  showTags: false
+  showTags: true
 
 # 智能菜单
 # 如不需要，将该对应项置为false
@@ -127,6 +127,6 @@ smart_menu:
 #   友情链接5: http://localhost:4000/
 #   友情链接6: http://localhost:4000/
 
-aboutme: 喜欢二次元，典型天蝎座<br>好电影音乐，而并非麦霸<br>不太善交际，对事很理性<br>不是高富帅，心里有逼数<br>半个科技宅，会修点电脑<br>单身20多年，是个老实人
+aboutme: 喜欢二次元，典型天蝎座<br>好电影音乐，而并非麦霸<br>不太善交际，对事很理性<br>不是高富帅，心里有逼数<br>半个科技宅，会修点电脑<br>单身20多年，是个老实人<br>在这里给你一个认识我的渠道<br>也希望能给我一个认识你的方式
 
 
