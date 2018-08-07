@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Shawn&#39;s time">
 <meta property="og:description" content="资料网上也有许多，就整理一下关于搭建和遇到的一些问题。 关于hexo资料网上也有许多，就整理一下关于搭建和遇到的一些问题。 关于Hexo搭建问题：传送门1 于Hexo多端同步问题：传送门2 关于域名绑定：传送门3">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-09T11:02:47.033Z">
+<meta property="og:updated_time" content="2018-07-09T11:22:09.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Hexo的那些坑">
 <meta name="twitter:description" content="资料网上也有许多，就整理一下关于搭建和遇到的一些问题。 关于hexo资料网上也有许多，就整理一下关于搭建和遇到的一些问题。 关于Hexo搭建问题：传送门1 于Hexo多端同步问题：传送门2 关于域名绑定：传送门3">
@@ -185,7 +185,7 @@
 <h6 id="日常使用Hexo："><a href="#日常使用Hexo：" class="headerlink" title="日常使用Hexo："></a>日常使用Hexo：</h6><p>有图片上传时：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先将图片推到hexo分支</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"commit_content"</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></table></figure>
 <p>无图时：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">"title"</span>	<span class="comment"># 然后进入\source\_posts找到相应的md文件编写</span></span><br><span class="line">hexo clean		    <span class="comment"># 清除缓存，不能生成时一定要清除一下！</span></span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">"title"</span>	<span class="comment"># 然后进入\source\_posts找到相应的md文件编写</span></span><br><span class="line">hexo clean			<span class="comment"># 清除缓存，不能生成时一定要清除一下！</span></span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
 
       
 
@@ -410,14 +410,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">感想</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
@@ -427,6 +419,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">降维算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">感想</a>
               </li>
             
             <div class="clearfix"></div>
