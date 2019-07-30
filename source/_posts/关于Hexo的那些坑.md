@@ -55,4 +55,4 @@ git checkout hexo
 
 其它文件夹：
 
-![img](https://upload-images.jianshu.io/upload_images/2859254-8ac27ff2282797b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/657/format/webp)
+![img](./img/hexo目录.png)
