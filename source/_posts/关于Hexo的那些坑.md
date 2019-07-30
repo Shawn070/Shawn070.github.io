@@ -38,3 +38,21 @@ hexo clean			# 清除缓存，不能生成时一定要清除一下！
 hexo g -d
 ```
 
+----
+
+###### 目录介绍
+
+日常操作只需在hexo分支上进行，分支切换:
+
+```
+git checkout master
+git checkout hexo
+```
+
+分支 hexo ：为源码分支
+
+分支 master：为部署分支，.deploy_git 存放部署的静态文件
+
+其它文件夹：
+
+![img](https://upload-images.jianshu.io/upload_images/2859254-8ac27ff2282797b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/657/format/webp)
