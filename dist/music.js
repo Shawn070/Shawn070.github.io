@@ -1,6 +1,6 @@
 const ap = new APlayer({
-    container: document.getElementById('player'),
-    fix: true,
+    container: document.getElementById('aplayer'),
+    min: true,
     autoplay: false,
     loop: 'all',
     volume: 0.7,
@@ -8,7 +8,7 @@ const ap = new APlayer({
     listMaxHeight: 60,
     audio: [
       {
-        name: '111',
+        name: '222',
         artist: '麦小兜',
         url: 'http://up.mcyt.net/?down/45967.mp3',
         cover: 'http://oeff2vktt.bkt.clouddn.com/image/8.jpg',
