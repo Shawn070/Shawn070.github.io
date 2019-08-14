@@ -1,5 +1,5 @@
 const ap = new APlayer({
-    container: document.getElementById('aplayer'),
+    container: document.getElementById('player'),
     fix: true,
     autoplay: false,
     loop: 'all',
