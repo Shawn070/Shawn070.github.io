@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>关于Hexo的那些坑</title>
+      <link href="/2018/07/09/%E5%85%B3%E4%BA%8EHexo%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"/>
+      <url>/2018/07/09/%E5%85%B3%E4%BA%8EHexo%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>资料网上也有许多，就整理一下关于搭建和遇到的一些问题。</p><p>关于hexo资料网上也有许多，就整理一下关于搭建和遇到的一些问题。</p><p>关于Hexo搭建问题：<a href="https://www.jianshu.com/p/189fd945f38f/" title="搭建个人博客-hexo+github详细完整步骤" target="_blank" rel="noopener">传送门1</a></p><p>于Hexo多端同步问题：<a href="https://www.jianshu.com/p/0b1fccce74e0/" title="利用Hexo在多台电脑上提交和更新github pages博客" target="_blank" rel="noopener">传送门2</a></p><p>关于域名绑定：<a href="https://www.jianshu.com/p/23b9e095c7c9/" title="为你的hexo博客配置个性域名" target="_blank" rel="noopener">传送门3</a></p><a id="more"></a><hr><h6 id="日常使用Hexo："><a href="#日常使用Hexo：" class="headerlink" title="日常使用Hexo："></a>日常使用Hexo：</h6><p>有图片上传时：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先将图片推到hexo分支</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"commit_content"</span></span><br><span class="line">git push origin hexo</span><br></pre></td></tr></table></figure><p>无图时：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">"title"</span><span class="comment"># 然后进入\source\_posts找到相应的md文件编写</span></span><br><span class="line">hexo clean<span class="comment"># 清除缓存，不能生成时一定要清除一下！</span></span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure><hr><h6 id="目录介绍"><a href="#目录介绍" class="headerlink" title="目录介绍"></a>目录介绍</h6><p>日常操作只需在hexo分支上进行，分支切换:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout hexo</span><br></pre></td></tr></table></figure><p>分支 hexo ：为源码分支</p><p>分支 master：为部署分支，.deploy_git 存放部署的静态文件</p><p>其它文件夹：</p><p><img src="./img/hexo目录.png" alt="img"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[转]降维打击之LLE算法</title>
+      <link href="/2018/07/09/%E8%BD%AC-%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB%E4%B9%8BLLE%E7%AE%97%E6%B3%95/"/>
+      <url>/2018/07/09/%E8%BD%AC-%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB%E4%B9%8BLLE%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>本文来自与网友，已征求过转载同意。</p><p>文章来源：<a href="http://www.quanlion.com/2017/09/29/%E9%99%8D%E7%BB%B4%E6%89%93%E5%87%BB%E4%B9%8BLLE%E7%AE%97%E6%B3%95/" target="_blank" rel="noopener">传送门</a></p><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>　　最近在温习之前了解过的spectral clustering 的时候接触到一个看着bigger满满的术语：manifold learing，然后顺藤摸瓜找到一篇2000年的science，不过他们当时并没有大肆炒这个manifold learning的概念，而是提出了一种叫做“local linear embedding”的降维算法，在处理所谓的流形的降维的时候，效果比PCA要好很多。于是我了解了下这个“简约而不简单”的LLE算法的具体实现方法，写一下我目前的理解。</p><p><a id="more"></a>　<br>   <img src="http://instudio.mabangapp.com/img/037/WJ058/WJ058g08.jpg" alt="Swiss roll"><br>　　<br>　　<a href="http://instudio.mabangapp.com/img/037/WJ058/WJ058g08.jpg" target="_blank" rel="noopener">图片来源</a><br>　　首先，所谓流形，我脑海里最直观的印象就是上图这种Swiss roll,我吃的时候喜欢把它整个摊开成一张饼再吃，其实这个过程就实现了对瑞士卷的降维操作，即从三维降到了两维。降维前，我们看到相邻的卷层之间看着距离很近，但其实摊开成饼状后才发现其实距离很远，所以如果不进行降维操作，如果根据近邻原则去判断相似性其实是不准确的。</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>　　LLE的原理其实是这样的：</p><ul><li><p>所谓局部线性，就是认为在整个数据集的某小范围内，数据是线性的，就比如虽然地球是圆的，但我们还是可以认为我们的篮球场是个平面；而这个“小范围”，最直接的办法就是k-近邻原则。这个“近邻”的判断也可以是不同的依据：比如欧氏距离，测地距离等。</p></li><li><p>既然是线性，那么对每个数据点$x_i$(D维数据，即$D\times 1$的列向量)，可以用其k近邻的数据点的线性组合来表示，即$x_i = \sum_{j=1}^{k}w_{ji}x_{ji}$。其中，$w_i$是$k\times 1$的列向量，$w_{ji}$是$w_i$的第$j$行,$x_{ji}$是$x_i$的第j个近邻点。</p></li></ul><ul><li><p>通过使loss function最小化：<br>$$ \arg\min \limits_{W}\sum_{i=1}^{N}(|x_i-\sum_{j=1}^{k}w_{ji}x_{ji}|_2^2)$$<br>得到权重系数$w = [w_1, w_2, …, w_N]$,一共N个数据点，对应$N$列$w_i$。</p></li><li><p>接下来是LLE中又一个假设：即认为将原始数据从D维降到d维后，$x_i(D\times 1) \rightarrow y_i(d\times 1)$,其依旧可以表示为其k近邻的线性组合，且组合系数不变，即$w_i$,再一次通过最小化loss function:</p></li></ul><p>$$ \arg\min \limits_{Y}\sum_{i=1}^{N}(|y_i-\sum_{j=1}^{k}w_{ji}y_{ji}|_2^2)$$</p><p>得到降维后的数据。</p><h2 id="算法推导"><a href="#算法推导" class="headerlink" title="算法推导"></a>算法推导</h2><h3 id="step-1："><a href="#step-1：" class="headerlink" title="step 1："></a>step 1：</h3><p>运用k近邻算法得到每个数据的k近邻点：</p><p>$$N_i = KNN(x_i,k), N_i = [x_{1i}, …, x_{ki}]$$</p><h3 id="step-2-求解权重系数矩阵"><a href="#step-2-求解权重系数矩阵" class="headerlink" title="step 2: 求解权重系数矩阵"></a>step 2: 求解权重系数矩阵</h3><p>即求解：</p><p>$$ \arg\min \limits_{W}\sum_{i=1}^{N} |x_i - \sum_{j=1}^{k}w_{ji}x_{ji}|^2, s.t. \sum_{j=1}^k$$</p><p>在推导之前，我们首先统一下数据的矩阵表达形式</p><p>　　输入：$X = [x_1, x_2, …, x_N], D\times N$</p><p>　　权重：$w = [w_1, w_2, …, w_N], k\times N$</p><p>　　</p><p>$$\Phi(w)=\sum_{i=1}^{N} |x_i - \sum_{j=1}^{k}w_{ji}x_{ji}|^2$$<br>$$=\sum_{i=1}^{N} |\sum_{j=1}^k (x_i-x_{ji})w_{ji}|^2$$<br>$$=\sum_{i=1}^N |(X_i-N_i)w_i|^2, X_i =\underbrace {[x_i, …, x_i]}_k, N_i = [x_{1i}, …, x_{ki}]$$<br>$$= \sum_{i=1}^N w_i^T(X_i-N_i)^T(X_i-N_i)w_i$$<br>$let\ S_i = (X_i-N_i)^T(X_i-N_i)$ being the covariance matrix, then:<br>$$\Phi(w)=\sum_{i=1}^N w_i^T S_i w_i$$<br>拉格朗日乘子法：<br>$$L(w_i) = w_i^T S_i w_i + \lambda(w_i^T-1)$$<br>求导：<br>$$\frac{\partial L(w_i)}{\partial w_i} = 2S_iw_i+\lambda I = 0$$<br>$$w_i = \frac{S_i^{-1}I}{I^T S_i^{-1}I}$$<br>　　<br>　　就上述表达式而言，局部协方差矩阵$S_i$是个$k\times k$的矩阵，其分母其实是$S_i$的逆矩阵的所有元素之和，而其分子是$S_i$的逆矩阵对行求和后得到的列向量。</p><h3 id="step-3-映射到低维空间-d-lt-D"><a href="#step-3-映射到低维空间-d-lt-D" class="headerlink" title="step 3: 映射到低维空间($d&lt;D$)"></a>step 3: 映射到低维空间($d&lt;D$)</h3><p>即求解：<br>$$\arg \min \limits_{Y} \Psi(Y) = \sum_{i=1}^N|y_i - \sum_{j=1}^k w_{ji}y_{ji}|^2, s.t. \sum_{i=1}^N y_i = 0, \sum_{i=1}^N y_i y_i^T = NI_{d\times d}$$</p><p>　　</p><p>　　低维空间向量：$Y = [y_1, y_2, …, y_N], d\times N$</p><p>首先，用一个$N\times N$的稀疏矩阵(sparse matrix)$W$来表示$w$:</p><p>　　　　　对$i$的近邻点j：   $W_{ji} = w_{ji}$;</p><p>　　　　　否则:   $W_{ji} = 0$</p><p>因此：<br>$$\sum_{j=1}^k w_{ji}y_{ji} = YW_i$$<br>$W_i$是$W$方阵的第$i$列。所以<br>$$\Psi(Y) = \sum_{i=1}^N|Y(I_i-W_i)|^2$$<br>由矩阵论可知：对矩阵$A = [a_1, a_2, …, a_N]$<br>$$\sum_i (a_i)^2 = \sum_i a_i^T a_i = tr(AA^T)$$<br>所以：<br>$$\Psi(Y) = tr(Y(I_i-W_i)(I_i-W_i)^TY^T)$$<br>$$= tr(YMY^T),    M = (I_i-W_i)(I_i-W_i)^T$$<br>再一次拉格朗日乘子法：<br>$$L(Y) = YMY^T+\lambda (YY^T-NI)$$<br>求导：<br>$$\frac{\partial L}{\partial Y} = 2MY^T+2\lambda Y^T = 0$$<br>即<br>$$MY^T = \lambda’Y^T$$</p><p>　　可见Y其实是M的特征向量构成的矩阵，为了将数据降到d维，我们只需要取M的最小的d个非零特征值对应的特征向量，而一般第一个最小的特征值接近0，我们将其舍弃，取前$[2， d+1]$个特征值对应的特征向量。</p><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ol><li>在step 3中为什么是取d个最小的非零特征值，而不是最大的d个特征值呢？</li><li>怎样理解每一步的约束条件呢？</li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+            <tag> 降维算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>人生如逆旅，我亦是行人</title>
+      <link href="/2018/04/24/%E4%BA%BA%E7%94%9F%E5%A6%82%E9%80%86%E6%97%85%EF%BC%8C%E6%88%91%E4%BA%A6%E6%98%AF%E8%A1%8C%E4%BA%BA/"/>
+      <url>/2018/04/24/%E4%BA%BA%E7%94%9F%E5%A6%82%E9%80%86%E6%97%85%EF%BC%8C%E6%88%91%E4%BA%A6%E6%98%AF%E8%A1%8C%E4%BA%BA/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-写博客的初衷"><a href="#1-写博客的初衷" class="headerlink" title="1. 写博客的初衷"></a>1. 写博客的初衷</h2><p>　　前段时间在酷安上的termux软件下的评论区里看见有很多人讨论搭hexo博客的事，于是最近也闲来无事，也就用github+hexo搭了一个博客。经过几天的忙活，这个博客也差不多搭出来了，基本功能也都能实现了吧，也就能写点东西，发发MD，发发图，虽然也没什么特别的，但是能有个地方写写什么乱七八糟也是挺不错的。也不知道能写这个博客能写多久了，但是像这博客的名字一样——Shawn’s time，差不多也就是记一些杂事吧。虽然我的文笔一直很差，随便写点辣鸡文章也是可以的，算是一种自我发泄吧。虽然以前也写过什么日记的，但也没有坚持多久，记得上次写东西还是大四的时候。我不知道这个还能坚持多久，可以这一些自己的见解、想法，或者是转一些不错的MD也是不错。随便玩玩吧，希望能有时间一直写下去。</p><a id="more"></a><h2 id="2-关于时间利用的问题看法"><a href="#2-关于时间利用的问题看法" class="headerlink" title="2. 关于时间利用的问题看法"></a>2. 关于时间利用的问题看法</h2><p>　　本科的时候真的是缺乏一个很明确的方向(虽然现在的方向也不是特别明确)，以前也是特别喜欢怪这个专业，学的什么乱七八糟的东西，结果看他们出去找的工作也和这个专业没什么关系。现在看来以前在时间这个观点上有很大误解，以前总觉得大学4年时间好长好长，结果现在看来研究生的3年真的太短太短，以前总觉得有用不完的时间，于是就找游戏消遣，结果学的东西真的是太少了，到了找工作的时候才发现什么都不会，于是才选择了读研这条路。虽然我现在也觉得这个专业也是个“边缘”专业，但是也在这个专业里发现了许多大牛，才知道自己原来这么菜，虽然这个专业的就业结果不如那个厉害的专业，但其中也不乏找到很不错工作的人。<br>　　读了这么多年的书，我大概也找到了一些方向，但是我却发现每天一同学习的一些同学真的还不知道自己想要什么、想做什么，除了跟着导师的脚步走，完全没有对自己的规划，只想着，面包会有的，牛奶也会有的。我真的很佩服它们能力(学习能力超强)，但是总有迷糊的地方。仔细分析了一下，可能真的是这个教育体制带来的弊端，以前的家长与老师只会顾着让我们致力于学习成绩，觉得似乎只要学好了，什么都会有。虽然这在某种程度上来说并没有错，但是碍于他们观点的障碍(他们并没有我们想象的那样-似乎什么都知道，他们也有错，这是一个时代的限制，他们的很多观念已经在很久以前就成为了一种思维定势)，让我们在大学以前并没有找到自己真正想要什么，想做什么。<br>　　我越来越发现，以前本科学的基础似乎成了一种障碍，如果逃离这个专业，在那过去的四年里，学的专业知识确实是一点用也没有，最多就是让你知道有这么一个东西，但并没有什么实际的用处。所以以前选错了一个专业，以后想要转变职业方向，或许要比别人付出的很多(而且是要比别人存在一大段专业基础空白期)。但是我也庆幸比一小部分人意识到这个问题，在这个正该努力的年纪，我希望为时不晚，在剩下为时不多的几年能转变职业方向。</p><h2 id="3-逃离游戏这个大坑"><a href="#3-逃离游戏这个大坑" class="headerlink" title="3. 逃离游戏这个大坑"></a>3. 逃离游戏这个大坑</h2><p>　　本科玩点游戏还是挺正常，但现在我却发现我花了太多的时间在游戏上，以前出了学习就是玩游戏，有时放假能连着几天玩，玩得腱鞘发炎，导致现在稍微用手过度，就会导致手指腱鞘发炎。以前玩过LOL，冈布奥，皇室战争，部落冲突，还有各种单机各种小游戏，md我发现我也是后肝的，前面这几个每个每个都至少玩了一年，后来研一上也玩上了王者荣耀。回想起来真的是花了太多时间，如果用这些时间随便学学其它什么东西也强不少。不过但如今入了二次元这个坑真的是很难跳出来了，动漫什么还是追，只不过感兴趣的少了，才发现要补的番根本补不完，索性有机会真的想戒掉。最近吃鸡的游戏很火，无奈天生晕3D，大概是天意要让我戒掉游戏吧，也是很顺利，游戏最近也是基本没玩了，有空就看看书什么的。希望能逃离游戏这个大坑，把这为数不多时间拿来学点其他东西。</p><h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>　　我去，本来今天刚搭好博客想随便写写什么东西，结果一写就写这么长时间，也不知道写了有多少。哎，这还真的是花时间，弄得我今晚没看书，觉得有点亏啊。这些东西也没准备要给谁看，随便写点辣鸡，自己瞅瞅吧，也感觉很有成就感(我语文这么差的，居然不怕这东西了！)，感觉我的天蝎属性要爆炸，感觉天蝎的各种属性都适合我啊。<br>　　虽然说了这么多，但是感觉还有好多东西还没有说完，也不知道下一次再写是什么，可能是一周后？一月后？一年后？想那么多干什么，不也就是给自己看看吧，虽然觉得太花时间，但是有时候心里的一些看法，一些感动，一些拍出来的图片发到这里感觉也挺不错的。就这样吧，再看看书睡觉，虽然也知道很多人学到半夜两三点，比如我在我这个铺位的上一个学长，比如实验室师兄、师姐。这就显得我这点努力的什么也不算，很愧疚，学那么晚我真的扛不住，第二天也起不来，抱歉了，只能根据我的节奏来，但希望偶尔我也能熬熬夜什么的，学个2 3点，哇，好有意思，好像试试。md，说了不写了又写这么多，受不了了。卧槽，这戏是真的多啊，一个人看还tm这么多废话啊，真的是折射出我平时话太少，没朋友的关系吗？我擦，说到这里好心酸啊，不过这就是我啦，真的只有自己写才能写出这样的辣鸡文章吗。就这样吧，晚安。</p><p>2018/4/28 23:21 小雨 18℃ 微风</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 杂记 </tag>
+            
+            <tag> 感想 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2018/04/21/hello-world/"/>
+      <url>/2018/04/21/hello-world/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
